@@ -1,0 +1,183 @@
+<html>
+  <head>
+    <style>
+      #projectContainer {
+        margin: 20px;
+      }
+
+      .project {
+        border: 1px solid lightgray;
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 500px;
+      }
+
+      .project-header {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .task {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .add-task-btn {
+        background-color: lightblue;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right;
+      }
+
+      #projectContainer {
+        margin: 20px;
+      }
+
+      .project {
+        border: 1px solid lightgray;
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 500px;
+      }
+
+      .project-header {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .task {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .add-task-btn {
+        background-color: lightblue;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right;
+      }
+
+      .form-container {
+        width: 500px;
+        margin: 20px auto;
+      }
+
+      .form-header {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .form-input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        width: 100%;
+      }
+
+      .form-select {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .form-btn {
+        background-color: lightblue;
+            border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+  }
+    </style>
+    <script>
+      let projectList = [];
+
+      function addProject() {
+        let projectName = document.getElementById("projectName").value;
+        let projectDesc = document.getElementById("projectDesc").value;
+        let projectStatus = document.getElementById("projectStatus").value;
+        let project = { name: projectName, desc: projectDesc, status: projectStatus, tasks: [] };
+        projectList.push(project);
+        displayProjects();
+      }
+
+      function addTask(projectIndex) {
+        let taskName = prompt("Enter task name");
+        let taskDesc = prompt("Enter task description");
+        let taskStatus = prompt("Enter task status (progress, pending, done)");
+        let task = { name: taskName, desc: taskDesc, status: taskStatus };
+        projectList[projectIndex].tasks.push(task);
+        displayProjects();
+      }
+
+      function displayProjects() {
+        let projectContainer = document.getElementById("projectContainer");
+        projectContainer.innerHTML = "";
+        for (let i = 0; i < projectList.length; i++) {
+          let project = projectList[i];
+          let projectDiv = document.createElement("div");
+          projectDiv.classList.add("project");
+          projectDiv.innerHTML =
+            "<div class='project-header'>" +
+            project.name +
+            "</div><div>Project Description: " +
+            project.desc +
+            "</div><div>Project Status: " +
+            project.status +
+            "</div><br><b>Tasks:</b><br>";
+          for (let j = 0; j < project.tasks.length; j++) {
+            let task = project.tasks[j];
+            projectDiv.innerHTML +=
+              "<div class='task'>Task Name: " +
+              task.name +
+              " Task Description: " +
+              task.desc +
+              " Task Status: " +
+              task.status +
+              "</div>";
+          }
+          projectDiv.innerHTML +=
+            "<button class='add-task-btn' onclick='addTask(" + i + ")'>Add Task</button><br><br>";
+          projectContainer.appendChild(projectDiv);
+        }
+      }
+      
+    </script>
+    <body>
+        <h2>Add Project</h2>
+        Project Name: <input type="text" id="projectName"><br><br>
+        Project Description: <input type="text" id="projectDesc"><br><br>
+        Project Status:
+        <select id="projectStatus">
+          <option value="progress">Progress</option>
+          <option value="pending">Pending</option>
+          <option value="done">Done</option>
+        </select>
+        <br><br>
+        <button onclick="addProject()">Add Project</button>
+        <br><br>
+        <div id="projectContainer"></div>
+      </body>
+  </head>
+  <body>
